@@ -1,4 +1,4 @@
-import pygame
+import pygame,random
 from sys import exit
 
 pygame.init()
@@ -8,7 +8,6 @@ screen.fill((255,255,255))
 clock = pygame.time.Clock()
 game_active = True
 
-#wall
 wall = pygame.Rect(300,150,640,25)
 wall.bottomleft = (0,100)
 
@@ -19,7 +18,7 @@ score_surf = font.render (str(score_count),font,(255,255,255)).convert_alpha()
 score_rect = score_surf.get_rect(bottomright = (50,50))
 
 #paddle
-paddle_surf = pygame.surface.Surface((150,25)).convert_alpha()
+paddle_surf = pygame.surface.Surface((150,12)).convert_alpha()
 paddle_y = 400
 paddle_rect = paddle_surf.get_rect(midbottom = (320,paddle_y))
 paddle_surf.fill((255,255,255))
@@ -39,6 +38,8 @@ backround_surf.fill((0,0,0))
 def reset():
   paddle_rect.midbottom = 320,paddle_y
   ball_rect.midbottom = 320,150 
+  ball_y_random = random.choice([-2,2])
+  
   ball_y = 4
   ball_x = 4
   
@@ -79,6 +80,7 @@ while  True:
       if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_RETURN:
           reset()
+          print(ball_y)
           screen_wait = 1
           score_count = 0
           game_active = True
@@ -129,9 +131,11 @@ while  True:
       if abs(paddle_rect.top - ball_rect.bottom )< collision_tolerance and ball_y >0:
         ball_y *= -1
       if abs(paddle_rect.left - ball_rect.right) < collision_tolerance and ball_y <0:
-        ball_rect.x *= -1
+        ball_x *= -1
       if abs(paddle_rect.right - ball_rect.left )< collision_tolerance and ball_x <0:
-        ball_rect.x *= -1
+        ball_x *= -1
+      elif ball_rect.colliderect(paddle_rect) and ball_y > 0:
+        ball_y *= -1
       
 # detects when the ball  goes behind the paddle 
     if ball_rect.top >= 400:
