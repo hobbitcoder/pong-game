@@ -1,6 +1,8 @@
 import pygame
 from sys import exit
 
+#This is a super basic pong game#
+
 pygame.init()
 screen = pygame.display.set_mode((640,420))
 pygame.display.set_caption('pong')
