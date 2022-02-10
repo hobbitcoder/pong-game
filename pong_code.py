@@ -1,8 +1,6 @@
 import pygame
 from sys import exit
 
-#This is a super basic pong game#
-
 pygame.init()
 screen = pygame.display.set_mode((640,420))
 pygame.display.set_caption('pong')
@@ -15,10 +13,10 @@ wall = pygame.Rect(300,150,640,25)
 wall.bottomleft = (0,100)
 
 #score
-font = pygame.font.Font('font.ttf',50)
+font = pygame.font.Font('normal_font.ttf',25)
 score_count = 0 
 score_surf = font.render (str(score_count),font,(255,255,255)).convert_alpha()
-score_rect = score_surf.get_rect(topright = (50,50))
+score_rect = score_surf.get_rect(bottomright = (50,50))
 
 #paddle
 paddle_surf = pygame.surface.Surface((150,25)).convert_alpha()
@@ -47,10 +45,6 @@ def reset():
 # defines the game over function    
 def game_over():
   final_font2 = pygame.font.Font('normal_font.ttf',40)
-  
-  
-  
-  
   final_font = pygame.font.Font('font.ttf',150)
   final_text = final_font.render('game over',final_font,'red')
   final_txt_rect = final_text.get_rect(midbottom = (320,190))
@@ -93,7 +87,7 @@ while  True:
 # moves the ball 
     ball_rect.x = ball_rect.x + ball_x
     ball_rect.y = ball_rect.y + ball_y
-    score_surf = font.render (str(score_count),font,(255,255,255))  
+    score_surf = font.render ('your score = '+str(score_count),font,(255,255,255))  
 
     # makes the paddle unable to go off the screen
     if paddle_rect.right >=  640 or paddle_rect.left <= 0 :
@@ -139,7 +133,6 @@ while  True:
       if abs(paddle_rect.right - ball_rect.left )< collision_tolerance and ball_x <0:
         ball_rect.x *= -1
       
-          
 # detects when the ball  goes behind the paddle 
     if ball_rect.top >= 400:
       game_active = False
