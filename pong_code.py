@@ -7,7 +7,7 @@ pygame.display.set_caption('pong')
 screen.fill((255,255,255))
 clock = pygame.time.Clock()
 game_active = True
-# fhgfkjg
+
 #wall
 wall = pygame.Rect(300,150,640,25)
 wall.bottomleft = (0,100)
