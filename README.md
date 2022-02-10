@@ -1,1 +1,1 @@
-# pong-game simple pong game, improvable
+ simple pong game, happy to accept good pull requests
