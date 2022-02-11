@@ -9,7 +9,8 @@ clock = pygame.time.Clock()
 game_active = True
 
 wall = pygame.Rect(300,150,640,25)
-wall.bottomleft = (0,100)
+wall.topleft = (0,100)
+wall_y = 1
 
 #score
 font = pygame.font.Font('normal_font.ttf',25)
@@ -38,6 +39,7 @@ backround_surf.fill((0,0,0))
 def reset():
   paddle_rect.midbottom = 320,paddle_y
   ball_rect.midbottom = 320,150 
+  wall.topleft = (0,100)
   ball_y = 4
   ball_x = 4
   
@@ -86,6 +88,7 @@ while  True:
 # moves the ball 
     ball_rect.x = ball_rect.x + ball_x
     ball_rect.y = ball_rect.y + ball_y
+    wall.y  += wall_y
     score_surf = font.render ('your score = '+str(score_count),font,(255,255,255))  
 
     # makes the paddle unable to go off the screen
@@ -113,13 +116,17 @@ while  True:
   #bouncing of the window
      
   # top and bottom 
-    if ball_rect.top <= 100 or ball_rect.bottom >= 480:
+    if ball_rect.colliderect(wall) and ball_y <0:
       ball_y *= -1
   
   # sides of window  
     if ball_rect.left <= 0 or ball_rect.right >= 640:
       ball_x *= -1
   #####################################
+    if wall.bottom >= 200 :
+      wall_y *= -1
+    elif wall.top <= 90:
+      wall_y *= -1
   # detects when ball collides with the paddle
     collision_tolerance = 10
 
