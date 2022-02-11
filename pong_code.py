@@ -38,8 +38,6 @@ backround_surf.fill((0,0,0))
 def reset():
   paddle_rect.midbottom = 320,paddle_y
   ball_rect.midbottom = 320,150 
-  ball_y_random = random.choice([-2,2])
-  
   ball_y = 4
   ball_x = 4
   
@@ -80,7 +78,6 @@ while  True:
       if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_RETURN:
           reset()
-          print(ball_y)
           screen_wait = 1
           score_count = 0
           game_active = True
@@ -130,11 +127,17 @@ while  True:
       score_count += 1
       if abs(paddle_rect.top - ball_rect.bottom )< collision_tolerance and ball_y >0:
         ball_y *= -1
-      if abs(paddle_rect.left - ball_rect.right) < collision_tolerance and ball_y <0:
+      if abs(paddle_rect.left - ball_rect.right) < collision_tolerance and ball_x <0:
         ball_x *= -1
       if abs(paddle_rect.right - ball_rect.left )< collision_tolerance and ball_x <0:
         ball_x *= -1
-      elif ball_rect.colliderect(paddle_rect) and ball_y > 0:
+      if ball_rect.collidepoint(paddle_rect.topleft) and ball_x >0:
+        ball_y *=-1
+        ball_x *= -1
+      if ball_rect.collidepoint(paddle_rect.topright)  and ball_x <0:
+        ball_y *=-1
+        ball_x *= -1  
+      elif ball_rect.colliderect(paddle_rect) and ball_y > 0 and ball_x <0:
         ball_y *= -1
       
 # detects when the ball  goes behind the paddle 
@@ -147,4 +150,3 @@ while  True:
   clock.tick(60) 
   pygame.display.flip()   
   pygame.display.update()
-  
