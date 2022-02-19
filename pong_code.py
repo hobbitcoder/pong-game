@@ -7,13 +7,13 @@ pygame.display.set_caption('pong')
 screen.fill((255,255,255))
 clock = pygame.time.Clock()
 game_active = True
-
+rawline = "fonts/rawline.ttf"
 wall = pygame.Rect(300,150,640,25)
 wall.topleft = (0,100)
 wall_y = 1
 
 #score
-font = pygame.font.Font('normal_font.ttf',25)
+font = pygame.font.Font(rawline,25)
 score_count = 0 
 score_surf = font.render (str(score_count),font,(255,255,255)).convert_alpha()
 score_rect = score_surf.get_rect(bottomright = (50,50))
@@ -45,22 +45,22 @@ def reset():
   
 # defines the game over function    
 def game_over():
-  final_font2 = pygame.font.Font('normal_font.ttf',40)
-  final_font = pygame.font.Font('font.ttf',150)
-  final_text = final_font.render('game over',final_font,'red')
-  final_txt_rect = final_text.get_rect(midbottom = (320,190))
+  final_score_font = pygame.font.Font(rawline,40)
+  gameover_font = pygame.font.Font('fonts/pixel_type.ttf',150)
+  gameover = gameover_font.render('game over',gameover_font,'red')
+  gameover_rect = gameover.get_rect(midbottom = (320,190))
 
   
-  final_text2 = final_font2.render('score = '+str(score_count),final_font2,(255,255,255))
-  final_txt_rect2 = final_text2.get_rect(midbottom = (320,250))
+  final_score = final_score_font.render('score = '+str(score_count),final_score_font,(255,255,255))
+  final_txt_rect2 = final_score.get_rect(midbottom = (320,250))
   
-  enter = pygame.font.Font('normal_font.ttf',25)
+  enter = pygame.font.Font(rawline,18)
   enter_surf = enter.render('press [enter] to restart',enter,(255,255,255))
   enter_rect = enter_surf.get_rect(bottomleft= (220,275))
   screen.fill((0,0,0))
   
-  screen.blit(final_text,final_txt_rect)
-  screen.blit(final_text2,final_txt_rect2)
+  screen.blit(gameover,gameover_rect)
+  screen.blit(final_score ,final_txt_rect2)
   screen.blit(enter_surf,enter_rect)
   
 screen_wait = 1
