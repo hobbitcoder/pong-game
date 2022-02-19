@@ -117,6 +117,7 @@ while  True:
      
   # top and bottom 
     if ball_rect.colliderect(wall) and ball_y <0:
+      score_count += 1
       ball_y *= -1
   
   # sides of window  
@@ -131,7 +132,6 @@ while  True:
     collision_tolerance = 10
 
     if ball_rect.colliderect(paddle_rect):
-      score_count += 1
       if abs(paddle_rect.top - ball_rect.bottom )< collision_tolerance and ball_y >0:
         ball_y *= -1
       if abs(paddle_rect.left - ball_rect.right) < collision_tolerance and ball_x <0:
