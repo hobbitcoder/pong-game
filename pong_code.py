@@ -11,7 +11,9 @@ rawline = "fonts/rawline.ttf"
 wall = pygame.Rect(300,150,640,25)
 wall.topleft = (0,100)
 wall_y = 1
-
+# vars for held down keys
+left = False
+right = False
 #score
 font = pygame.font.Font(rawline,25)
 score_count = 0 
@@ -73,8 +75,17 @@ while  True:
       exit()
     if game_active == True:  
       
-      if event.type == pygame.MOUSEMOTION:
-          paddle_rect.centerx = event.pos[0] 
+      if event.type == pygame.KEYDOWN:
+          if event.key == pygame.K_LEFT:
+            left = True
+          if event.key == pygame.K_RIGHT:
+            right = True
+      
+      if event.type == pygame.KEYUP:
+        if event.key == pygame.K_LEFT:
+            left = False
+        if event.key == pygame.K_RIGHT:
+            right = False
 
     if game_active == False:
       if event.type == pygame.KEYDOWN:
@@ -91,12 +102,19 @@ while  True:
     wall.y  += wall_y
     score_surf = font.render ('your score = '+str(score_count),font,(255,255,255))  
 
+# detects if keys are held down
+    if right == True:
+      paddle_rect.x += 5
+      
+    elif left == True:
+      paddle_rect.x -= 5
     # makes the paddle unable to go off the screen
     if paddle_rect.right >=  640 or paddle_rect.left <= 0 :
       if paddle_rect.left <= 0 :
         paddle_rect.left = 0
       if paddle_rect.right >= 640:
-        paddle_rect.right = 640    
+        paddle_rect.right = 640 
+        
   # blits all the surfaces  
     
     screen.blit(backround_surf,(0,0))
